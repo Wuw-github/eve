@@ -63,20 +63,126 @@ CMAKE_BINARY_DIR = /home/wu/Documents/sylar/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all:
+all: test/all
+all: src/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen:
+codegen: test/codegen
+codegen: src/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: test/preinstall
+preinstall: src/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean:
+clean: test/clean
+clean: src/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory src
+
+# Recursive "all" directory target.
+src/all: src/CMakeFiles/sylar.dir/all
+.PHONY : src/all
+
+# Recursive "codegen" directory target.
+src/codegen: src/CMakeFiles/sylar.dir/codegen
+.PHONY : src/codegen
+
+# Recursive "preinstall" directory target.
+src/preinstall:
+.PHONY : src/preinstall
+
+# Recursive "clean" directory target.
+src/clean: src/CMakeFiles/sylar.dir/clean
+.PHONY : src/clean
+
+#=============================================================================
+# Directory level rules for directory test
+
+# Recursive "all" directory target.
+test/all: test/CMakeFiles/test_log.dir/all
+.PHONY : test/all
+
+# Recursive "codegen" directory target.
+test/codegen: test/CMakeFiles/test_log.dir/codegen
+.PHONY : test/codegen
+
+# Recursive "preinstall" directory target.
+test/preinstall:
+.PHONY : test/preinstall
+
+# Recursive "clean" directory target.
+test/clean: test/CMakeFiles/test_log.dir/clean
+.PHONY : test/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/test_log.dir
+
+# All Build rule for target.
+test/CMakeFiles/test_log.dir/all: src/CMakeFiles/sylar.dir/all
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=3,4 "Built target test_log"
+.PHONY : test/CMakeFiles/test_log.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/test_log.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/test_log.dir/rule
+
+# Convenience name for target.
+test_log: test/CMakeFiles/test_log.dir/rule
+.PHONY : test_log
+
+# codegen rule for target.
+test/CMakeFiles/test_log.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=3,4 "Finished codegen for target test_log"
+.PHONY : test/CMakeFiles/test_log.dir/codegen
+
+# clean rule for target.
+test/CMakeFiles/test_log.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/clean
+.PHONY : test/CMakeFiles/test_log.dir/clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/sylar.dir
+
+# All Build rule for target.
+src/CMakeFiles/sylar.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2 "Built target sylar"
+.PHONY : src/CMakeFiles/sylar.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/sylar.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/sylar.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/sylar.dir/rule
+
+# Convenience name for target.
+sylar: src/CMakeFiles/sylar.dir/rule
+.PHONY : sylar
+
+# codegen rule for target.
+src/CMakeFiles/sylar.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2 "Finished codegen for target sylar"
+.PHONY : src/CMakeFiles/sylar.dir/codegen
+
+# clean rule for target.
+src/CMakeFiles/sylar.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/clean
+.PHONY : src/CMakeFiles/sylar.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

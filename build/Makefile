@@ -116,6 +116,32 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named test_log
+
+# Build rule for target.
+test_log: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_log
+.PHONY : test_log
+
+# fast build rule for target.
+test_log/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
+.PHONY : test_log/fast
+
+#=============================================================================
+# Target rules for targets named sylar
+
+# Build rule for target.
+sylar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sylar
+.PHONY : sylar
+
+# fast build rule for target.
+sylar/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/build
+.PHONY : sylar/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -124,6 +150,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... sylar"
+	@echo "... test_log"
 .PHONY : help
 
 

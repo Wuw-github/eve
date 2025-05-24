@@ -1,2 +1,8 @@
 /home/wu/Documents/sylar/build/CMakeFiles/edit_cache.dir
 /home/wu/Documents/sylar/build/CMakeFiles/rebuild_cache.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/test_log.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/edit_cache.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/rebuild_cache.dir
+/home/wu/Documents/sylar/build/src/CMakeFiles/sylar.dir
+/home/wu/Documents/sylar/build/src/CMakeFiles/edit_cache.dir
+/home/wu/Documents/sylar/build/src/CMakeFiles/rebuild_cache.dir
