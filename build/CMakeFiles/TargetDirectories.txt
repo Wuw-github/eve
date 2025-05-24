@@ -1,0 +1,2 @@
+/home/wu/Documents/sylar/build/CMakeFiles/edit_cache.dir
+/home/wu/Documents/sylar/build/CMakeFiles/rebuild_cache.dir
