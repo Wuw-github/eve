@@ -59,5 +59,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/test_log.dir/DependInfo.cmake"
+  "test/CMakeFiles/test_config.dir/DependInfo.cmake"
   "src/CMakeFiles/sylar.dir/DependInfo.cmake"
   )
