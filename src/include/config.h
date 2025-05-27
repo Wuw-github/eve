@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <boost/lexical_cast.hpp>
+#include <yaml-cpp/yaml.h>
 #include "log.h"
 
 namespace sylar
@@ -13,7 +14,10 @@ namespace sylar
     public:
         typedef std::shared_ptr<ConfigVarBase> ptr;
         ConfigVarBase(const std::string &name, const std::string &description = "")
-            : m_name(name), m_description(description) {}
+            : m_name(name), m_description(description)
+        {
+            std::transform(m_name.begin(), m_name.end(), m_name.begin(), ::tolower);
+        }
 
         ~ConfigVarBase() {}
 
@@ -30,7 +34,60 @@ namespace sylar
         std::string m_description;
     };
 
+    // F: from type, T: to type
+    template <class F, class T>
+    class LexicalCast
+    {
+    public:
+        T operator()(const F &v)
+        {
+            return boost::lexical_cast<T>(v);
+        }
+    };
+
     template <class T>
+    class LexicalCast<std::string, std::vector<T>>
+    {
+    public:
+        std::vector<T> operator()(const std::string &v)
+        {
+            std::vector<T> vec;
+            YAML::Node node = YAML::Load(v);
+
+            for (size_t i = 0; i < node.size(); ++i)
+            {
+                std::stringstream ss;
+                ss << node[i];
+                vec.push_back(LexicalCast<std::string, T>()(ss.str()));
+            }
+
+            return vec;
+        }
+    };
+
+    template <class T>
+    class LexicalCast<std::vector<T>, std::string>
+    {
+    public:
+        std::string operator()(const std::vector<T> &v)
+        {
+            YAML::Node node;
+            for (auto i : v)
+            {
+                node.push_back(YAML::Load(LexicalCast<T, std::string>()(i)));
+            }
+            std::stringstream ss;
+            ss << node;
+
+            return ss.str();
+        }
+    };
+
+    // FromStr : T operator(const std::string &)
+    // ToStr : std::string operator() (const T&)
+    template <class T,
+              class FromStr = LexicalCast<std::string, T>,
+              class ToStr = LexicalCast<T, std::string>>
     class ConfigVar : public ConfigVarBase
     {
     public:
@@ -42,12 +99,13 @@ namespace sylar
         {
             try
             {
-                return boost::lexical_cast<std::string>(m_val);
+                // return boost::lexical_cast<std::string>(m_val);
+                return ToStr()(m_val);
             }
             catch (const std::exception &e)
             {
-                SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "ConfigVar::toString exception" << e.what()
-                                                  << " convert: " << typeid(m_val).name() << " to string";
+                LOG_ERROR(LOG_ROOT()) << "ConfigVar::toString exception" << e.what()
+                                      << " convert: " << typeid(m_val).name() << " to string";
             }
 
             return "";
@@ -56,12 +114,13 @@ namespace sylar
         {
             try
             {
-                m_val = boost::lexical_cast<T>(val);
+                // m_val = boost::lexical_cast<T>(val);
+                setValue(FromStr()(val));
             }
             catch (std::exception &e)
             {
-                SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "ConfigVar::fromString exception" << e.what()
-                                                  << " convert string to" << typeid(m_val).name();
+                LOG_ERROR(LOG_ROOT()) << "ConfigVar::fromString exception" << e.what()
+                                      << " convert string to" << typeid(m_val).name();
             }
             return false;
         }
@@ -84,13 +143,13 @@ namespace sylar
             auto tmp = Lookup<T>(name);
             if (tmp)
             {
-                SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "Lookup name " << name << " exists";
+                LOG_INFO(LOG_ROOT()) << "Lookup name " << name << " exists";
                 return tmp;
             }
 
             if (name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._0123456789") != std::string::npos)
             {
-                SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name invalid " << name;
+                LOG_ERROR(LOG_ROOT()) << "Lookup name invalid " << name;
                 throw std::invalid_argument(name);
             }
 
@@ -111,6 +170,10 @@ namespace sylar
 
             return std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
         }
+
+        static void LoadFromYaml(const YAML::Node &root);
+
+        static ConfigVarBase::ptr LookupBase(const std::string &name);
 
     private:
         static ConfigVarMap s_datas;

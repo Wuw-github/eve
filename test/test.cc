@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     logger->addAppender(fileAppender);
 
-    SYLAR_LOG_INFO(logger) << "Hello World";
-    SYLAR_LOG_FMT_ERROR(logger, "Hello %s Error", "World");
+    LOG_INFO(logger) << "Hello World";
+    LOG_FMT_ERROR(logger, "Hello %s Error", "World");
     return 0;
 }

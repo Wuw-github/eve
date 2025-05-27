@@ -13,28 +13,28 @@
 #include "util.h"
 #include "singleton.h"
 
-#define SYLAR_LOG_LEVEL(logger, level) \
-    if (logger->getLevel() <= level)   \
+#define LOG_LEVEL(logger, level)     \
+    if (logger->getLevel() <= level) \
     sylar::LogEventWrap(LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), "thread", GetFiberId(), time(0), "Hello World"))).getSS()
 
-#define SYLAR_LOG_DEBUG(logger) SYLAR_LOG_LEVEL(logger, LogLevel::DEBUG)
-#define SYLAR_LOG_INFO(logger) SYLAR_LOG_LEVEL(logger, LogLevel::INFO)
-#define SYLAR_LOG_WARN(logger) SYLAR_LOG_LEVEL(logger, LogLevel::WARN)
-#define SYLAR_LOG_ERROR(logger) SYLAR_LOG_LEVEL(logger, LogLevel::ERROR)
-#define SYLAR_LOG_FATAL(logger) SYLAR_LOG_LEVEL(logger, LogLevel::FATAL)
+#define LOG_DEBUG(logger) LOG_LEVEL(logger, LogLevel::DEBUG)
+#define LOG_INFO(logger) LOG_LEVEL(logger, LogLevel::INFO)
+#define LOG_WARN(logger) LOG_LEVEL(logger, LogLevel::WARN)
+#define LOG_ERROR(logger) LOG_LEVEL(logger, LogLevel::ERROR)
+#define LOG_FATAL(logger) LOG_LEVEL(logger, LogLevel::FATAL)
 
-#define SYLAR_LOG_FMT_LEVEL(logger, level, fmt, ...) \
-    if (logger->getLevel() <= level)                 \
+#define LOG_FMT_LEVEL(logger, level, fmt, ...) \
+    if (logger->getLevel() <= level)           \
     sylar::LogEventWrap(LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), "thread", GetFiberId(), time(0), fmt))).getEvent()->format(fmt, __VA_ARGS__)
 
-#define SYLAR_LOG_FMT_DEBUG(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::DEBUG, fmt, __VA_ARGS__)
-#define SYLAR_LOG_FMT_INFO(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::INFO, fmt, __VA_ARGS__)
-#define SYLAR_LOG_FMT_WARN(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::WARN, fmt, __VA_ARGS__)
-#define SYLAR_LOG_FMT_ERROR(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::ERROR, fmt, __VA_ARGS__)
-#define SYLAR_LOG_FMT_FATAL(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
-#define SYLAR_LOG_FMT_FATAL(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
+#define LOG_FMT_DEBUG(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::DEBUG, fmt, __VA_ARGS__)
+#define LOG_FMT_INFO(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::INFO, fmt, __VA_ARGS__)
+#define LOG_FMT_WARN(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::WARN, fmt, __VA_ARGS__)
+#define LOG_FMT_ERROR(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::ERROR, fmt, __VA_ARGS__)
+#define LOG_FMT_FATAL(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
+#define LOG_FMT_FATAL(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
 
-#define SYLAR_LOG_ROOT() sylar::LoggerMgr::GetInstance().getRoot()
+#define LOG_ROOT() sylar::LoggerMgr::GetInstance().getRoot()
 
 namespace sylar
 {
