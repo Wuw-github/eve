@@ -5,6 +5,8 @@ using namespace sylar;
 
 sylar::ConfigVar<int>::ptr g_int_value_config = sylar::Config::Lookup("system.port", (int)8080, "system port");
 
+// sylar::ConfigVar<float>::ptr g_float2_value_config = sylar::Config::Lookup("system.port", (float)8080, "system port");
+
 sylar::ConfigVar<float>::ptr g_float_value_config = sylar::Config::Lookup("system.value", (float)10.2f, "system value");
 
 sylar::ConfigVar<std::vector<int>>::ptr g_vec_int_value_config = sylar::Config::Lookup("system.int_vec", std::vector<int>{1, 2}, "system int vec");
@@ -92,7 +94,7 @@ void test_config()
         LOG_INFO(LOG_ROOT()) << "before int_umap: key: " << i.first << " val: " << i.second;
     }
 
-    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/test_log.yml");
     Config::LoadFromYaml(root);
 
     LOG_INFO(LOG_ROOT()) << "after: " << g_int_value_config->getValue();
@@ -135,7 +137,7 @@ void test_config()
 
 void test_yaml()
 {
-    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/test_log.yml");
     // if (!root["system"])
     // {
     //     LOG_ERROR(LOG_ROOT()) << "config.yaml not found system";
@@ -151,6 +153,97 @@ void test_yaml()
     print_yaml(root, 0);
 }
 
+class Person
+{
+public:
+    Person() = default;
+    std::string m_name = "wu";
+    int m_age = 20;
+    bool m_sex = 1;
+
+    std::string toString() const
+    {
+        std::stringstream ss;
+
+        ss << "[Person name=" << m_name
+           << " age=" << m_age
+           << " sex=" << m_sex;
+        return ss.str();
+    }
+    bool operator==(const Person &other) const
+    {
+        return m_name == other.m_name && m_age == other.m_age && m_sex == other.m_sex;
+    }
+};
+namespace sylar
+{
+    template <>
+    class LexicalCast<std::string, Person>
+    {
+    public:
+        Person operator()(const std::string &v)
+        {
+            Person p;
+            YAML::Node node = YAML::Load(v);
+
+            p.m_name = node["name"].as<std::string>();
+            p.m_age = node["age"].as<int>();
+            p.m_sex = node["sex"].as<int>();
+            return p;
+        }
+    };
+
+    template <>
+    class LexicalCast<Person, std::string>
+    {
+    public:
+        std::string operator()(const Person &v)
+        {
+            YAML::Node node;
+            node["name"] = v.m_name;
+            node["age"] = v.m_age;
+            node["sex"] = v.m_sex;
+
+            std::stringstream ss;
+            ss << node;
+
+            return ss.str();
+        }
+    };
+}
+
+sylar::ConfigVar<Person>::ptr g_person = sylar::Config::Lookup("class.person", Person(), "system person");
+
+void test_class()
+{
+    LoggerManager &mgr = LoggerMgr::GetInstance();
+    std::cout << mgr.toYamlString() << std::endl;
+    g_person->addListener(0, [](const Person &old_value, const Person &new_value)
+                          { LOG_INFO(LOG_ROOT()) << "on person value change: " << old_value.toString() << " - " << new_value.toString(); });
+
+    LOG_INFO(LOG_ROOT()) << "before: " << g_person->getValue().toString() << " - " << g_person->toString();
+
+    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/test_log.yml");
+    Config::LoadFromYaml(root);
+
+    LOG_INFO(LOG_ROOT()) << "after: " << g_person->getValue().toString() << " - " << g_person->toString();
+    std::cout << mgr.toYamlString() << std::endl;
+}
+
+void test_log_init()
+{
+    Logger::ptr system_logger = LOG_NAME("system");
+    LOG_INFO(system_logger) << "hello logger";
+    LoggerManager &mgr = LoggerMgr::GetInstance();
+    std::cout << mgr.toYamlString() << std::endl;
+    // ConfigVar<std::set<LogDefine>>::ptr g_log_defines = Config::Lookup("logs", std::set<LogDefine>(), "logs config");
+    YAML::Node root = YAML::LoadFile("/home/wu/Documents/sylar/bin/conf/log.yml");
+    Config::LoadFromYaml(root);
+
+    std::cout << "======================" << std::endl;
+    std::cout << mgr.toYamlString() << std::endl;
+    LOG_INFO(system_logger) << "hello logger";
+}
 int main(int argc, char *argv[])
 {
 
@@ -158,5 +251,7 @@ int main(int argc, char *argv[])
     // LOG_INFO(LOG_ROOT()) << g_int_value_config->toString();
 
     // test_yaml();
-    test_config();
+    // test_config();
+    // test_class();
+    test_log_init();
 }

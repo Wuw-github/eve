@@ -7,6 +7,7 @@
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
+#include <functional>
 #include <boost/lexical_cast.hpp>
 #include <yaml-cpp/yaml.h>
 #include "log.h"
@@ -33,6 +34,8 @@ namespace sylar
         virtual std::string toString() = 0;
 
         virtual bool fromString(const std::string &val) = 0;
+
+        virtual std::string getTypeName() const = 0;
 
     protected:
         std::string m_name;
@@ -292,6 +295,7 @@ namespace sylar
     {
     public:
         typedef std::shared_ptr<ConfigVar> ptr;
+        typedef std::function<void(const T &old_value, const T &new_value)> on_change_cb;
         ConfigVar(const std::string &name, const T &default_value, const std::string &description = "")
             : ConfigVarBase(name, description), m_val(default_value) {}
 
@@ -326,10 +330,42 @@ namespace sylar
         }
 
         const T getValue() const { return m_val; }
-        void setValue(const T &val) { m_val = val; }
+        void setValue(const T &val)
+        {
+            if (val == m_val)
+                return;
+
+            for (auto &f : m_cbs)
+            {
+                f.second(m_val, val);
+            }
+            m_val = val;
+        }
+        std::string getTypeName() const override { return typeid(T).name(); }
+
+        void addListener(uint64_t key, on_change_cb cb)
+        {
+            m_cbs[key] = cb;
+        }
+
+        void delListener(uint64_t key)
+        {
+            m_cbs.erase(key);
+        }
+
+        on_change_cb getListener(uint64_t key)
+        {
+            auto it = m_cbs.find(key);
+            return it == m_cbs.end() ? nullptr : it->second;
+        }
+
+        void clearListener() { m_cbs.clear(); }
 
     private:
         T m_val;
+
+        // callback functions when value changes.
+        std::map<uint64_t, on_change_cb> m_cbs;
     };
 
     class Config
@@ -341,13 +377,22 @@ namespace sylar
         template <class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string &name, const T &default_value, const std::string &desc = "")
         {
-            auto tmp = Lookup<T>(name);
-            if (tmp)
+            auto &data_map = GetDatas();
+            auto it = data_map.find(name);
+            if (it != data_map.end())
             {
-                LOG_INFO(LOG_ROOT()) << "Lookup name " << name << " exists";
-                return tmp;
+                auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
+                if (tmp)
+                {
+                    LOG_INFO(LOG_ROOT()) << "Lookup name " << name << " exists";
+                    return tmp;
+                }
+                // if value exists but not the same type, report issue
+                LOG_ERROR(LOG_ROOT()) << "Lookup name " << name << " exists but type not " << typeid(T).name()
+                                      << " real_type=" << it->second->getTypeName();
             }
 
+            // create new entry
             if (name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._0123456789") != std::string::npos)
             {
                 LOG_ERROR(LOG_ROOT()) << "Lookup name invalid " << name;
@@ -355,15 +400,16 @@ namespace sylar
             }
 
             typename ConfigVar<T>::ptr v(new ConfigVar<T>(name, default_value, desc));
-            s_datas[name] = v;
+            data_map[name] = v;
             return v;
         }
 
         template <class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string &name)
         {
-            auto it = s_datas.find(name);
-            if (it == s_datas.end())
+            auto &data_map = GetDatas();
+            auto it = data_map.find(name);
+            if (it == data_map.end())
             {
 
                 return nullptr;
@@ -377,6 +423,10 @@ namespace sylar
         static ConfigVarBase::ptr LookupBase(const std::string &name);
 
     private:
-        static ConfigVarMap s_datas;
+        static ConfigVarMap &GetDatas()
+        {
+            static ConfigVarMap s_datas;
+            return s_datas;
+        }
     };
 }
