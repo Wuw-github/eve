@@ -218,7 +218,7 @@ void test_class()
 {
     LoggerManager &mgr = LoggerMgr::GetInstance();
     std::cout << mgr.toYamlString() << std::endl;
-    g_person->addListener(0, [](const Person &old_value, const Person &new_value)
+    g_person->addListener([](const Person &old_value, const Person &new_value)
                           { LOG_INFO(LOG_ROOT()) << "on person value change: " << old_value.toString() << " - " << new_value.toString(); });
 
     LOG_INFO(LOG_ROOT()) << "before: " << g_person->getValue().toString() << " - " << g_person->toString();
@@ -243,6 +243,12 @@ void test_log_init()
     std::cout << "======================" << std::endl;
     std::cout << mgr.toYamlString() << std::endl;
     LOG_INFO(system_logger) << "hello logger";
+
+    Config::Visit([](ConfigVarBase::ptr var)
+                  { LOG_INFO(LOG_ROOT()) << "name=" << var->getName()
+                                         << " description=" << var->getDescription()
+                                         << " type=" << var->getTypeName()
+                                         << " string=" << var->toString(); });
 }
 int main(int argc, char *argv[])
 {

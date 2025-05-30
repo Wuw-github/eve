@@ -12,6 +12,7 @@
 
 #include "util.h"
 #include "singleton.h"
+#include "mutex.h"
 
 #define LOG_LEVEL(logger, level)     \
     if (logger->getLevel() <= level) \
@@ -147,11 +148,12 @@ namespace sylar
 
     public:
         typedef std::shared_ptr<LogAppender> ptr;
+        typedef Mutex MutexType;
         virtual ~LogAppender() = default;
 
         virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
-        void setFormatter(LogFormatter::ptr formatter) { m_formatter = formatter; }
-        LogFormatter::ptr getFormatter() { return m_formatter; }
+        void setFormatter(LogFormatter::ptr formatter);
+        LogFormatter::ptr getFormatter();
 
         void setLevel(LogLevel::Level level) { m_level = level; }
         LogLevel::Level getLevel() const { return m_level; }
@@ -160,6 +162,7 @@ namespace sylar
 
     protected:
         LogLevel::Level m_level;
+        MutexType m_mutex;
         LogFormatter::ptr m_formatter;
     };
 
@@ -168,6 +171,7 @@ namespace sylar
     public:
         friend class LoggerManager;
         typedef std::shared_ptr<Logger> ptr;
+        typedef Mutex MutexType;
 
         Logger(const std::string &name = "root");
 
@@ -200,6 +204,7 @@ namespace sylar
     private:
         std::string m_name;
         LogLevel::Level m_level{LogLevel::UNKNOWN};
+        MutexType m_mutex;
         std::list<LogAppender::ptr> m_appender;
         LogFormatter::ptr m_formatter;
         Logger::ptr m_root;
@@ -233,11 +238,13 @@ namespace sylar
     private:
         std::string m_filename;
         std::ofstream m_filestream;
+        uint64_t m_lastOpenTime{0};
     };
 
     class LoggerManager
     {
     public:
+        typedef Mutex MutexType;
         LoggerManager();
         Logger::ptr getLogger(const std::string &name);
         Logger::ptr getRoot() { return m_root; }
@@ -249,6 +256,7 @@ namespace sylar
     private:
         std::map<std::string, Logger::ptr> m_loggers;
         Logger::ptr m_root;
+        MutexType m_mutex;
     };
 
     typedef sylar::Singleton<LoggerManager> LoggerMgr;

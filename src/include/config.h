@@ -11,6 +11,7 @@
 #include <boost/lexical_cast.hpp>
 #include <yaml-cpp/yaml.h>
 #include "log.h"
+#include "mutex.h"
 
 namespace sylar
 {
@@ -296,6 +297,8 @@ namespace sylar
     public:
         typedef std::shared_ptr<ConfigVar> ptr;
         typedef std::function<void(const T &old_value, const T &new_value)> on_change_cb;
+        typedef RWMutex RWMutexType;
+
         ConfigVar(const std::string &name, const T &default_value, const std::string &description = "")
             : ConfigVarBase(name, description), m_val(default_value) {}
 
@@ -304,6 +307,7 @@ namespace sylar
             try
             {
                 // return boost::lexical_cast<std::string>(m_val);
+                RWMutexType::ReadLock lock(m_mutex);
                 return ToStr()(m_val);
             }
             catch (const std::exception &e)
@@ -329,43 +333,62 @@ namespace sylar
             return false;
         }
 
-        const T getValue() const { return m_val; }
+        const T getValue()
+        {
+            RWMutexType::ReadLock lock(m_mutex);
+            return m_val;
+        }
         void setValue(const T &val)
         {
-            if (val == m_val)
-                return;
-
-            for (auto &f : m_cbs)
             {
-                f.second(m_val, val);
+                RWMutexType::ReadLock lock(m_mutex);
+                if (val == m_val)
+                    return;
+
+                for (auto &f : m_cbs)
+                {
+                    f.second(m_val, val);
+                }
             }
+            RWMutexType::WriteLock lock(m_mutex);
             m_val = val;
         }
         std::string getTypeName() const override { return typeid(T).name(); }
 
-        void addListener(uint64_t key, on_change_cb cb)
+        uint64_t addListener(on_change_cb cb)
         {
-            m_cbs[key] = cb;
+            static uint64_t s_fun_id = 0;
+            RWMutexType::WriteLock lock(m_mutex);
+            ++s_fun_id;
+            m_cbs[s_fun_id] = cb;
+            return s_fun_id;
         }
 
         void delListener(uint64_t key)
         {
+            RWMutexType::WriteLock lock(m_mutex);
             m_cbs.erase(key);
         }
 
         on_change_cb getListener(uint64_t key)
         {
+            RWMutexType::ReadLock lock(m_mutex);
             auto it = m_cbs.find(key);
             return it == m_cbs.end() ? nullptr : it->second;
         }
 
-        void clearListener() { m_cbs.clear(); }
+        void clearListener()
+        {
+            RWMutexType::WriteLock lock(m_mutex);
+            m_cbs.clear();
+        }
 
     private:
         T m_val;
 
         // callback functions when value changes.
         std::map<uint64_t, on_change_cb> m_cbs;
+        RWMutexType m_mutex;
     };
 
     class Config
@@ -373,10 +396,12 @@ namespace sylar
 
     public:
         typedef std::map<std::string, ConfigVarBase::ptr> ConfigVarMap;
+        typedef RWMutex RWMutexType;
 
         template <class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string &name, const T &default_value, const std::string &desc = "")
         {
+            RWMutexType::WriteLock lock(GetMutex());
             auto &data_map = GetDatas();
             auto it = data_map.find(name);
             if (it != data_map.end())
@@ -407,6 +432,7 @@ namespace sylar
         template <class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string &name)
         {
+            RWMutexType::ReadLock lock(GetMutex());
             auto &data_map = GetDatas();
             auto it = data_map.find(name);
             if (it == data_map.end())
@@ -422,11 +448,19 @@ namespace sylar
 
         static ConfigVarBase::ptr LookupBase(const std::string &name);
 
+        static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+
     private:
         static ConfigVarMap &GetDatas()
         {
             static ConfigVarMap s_datas;
             return s_datas;
+        }
+
+        static RWMutexType &GetMutex()
+        {
+            static RWMutexType s_mutex;
+            return s_mutex;
         }
     };
 }
