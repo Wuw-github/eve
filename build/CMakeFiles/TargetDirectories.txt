@@ -3,6 +3,8 @@
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_log.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_config.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_thread.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/test_util.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/test_fiber.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/edit_cache.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/rebuild_cache.dir
 /home/wu/Documents/sylar/build/src/CMakeFiles/sylar.dir

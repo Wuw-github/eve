@@ -13,10 +13,11 @@
 #include "util.h"
 #include "singleton.h"
 #include "mutex.h"
+#include "thread.h"
 
 #define LOG_LEVEL(logger, level)     \
     if (logger->getLevel() <= level) \
-    sylar::LogEventWrap(LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), "thread", GetFiberId(), time(0), "Hello World"))).getSS()
+    sylar::LogEventWrap(sylar::LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), Thread::GetName(), GetFiberId(), time(0), ""))).getSS()
 
 #define LOG_DEBUG(logger) LOG_LEVEL(logger, LogLevel::DEBUG)
 #define LOG_INFO(logger) LOG_LEVEL(logger, LogLevel::INFO)
@@ -26,17 +27,16 @@
 
 #define LOG_FMT_LEVEL(logger, level, fmt, ...) \
     if (logger->getLevel() <= level)           \
-    sylar::LogEventWrap(LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), "thread", GetFiberId(), time(0), fmt))).getEvent()->format(fmt, __VA_ARGS__)
+    sylar::LogEventWrap(LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, GetThreadId(), Thread::GetName(), GetFiberId(), time(0), fmt))).getEvent()->format(fmt, __VA_ARGS__)
 
 #define LOG_FMT_DEBUG(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::DEBUG, fmt, __VA_ARGS__)
 #define LOG_FMT_INFO(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::INFO, fmt, __VA_ARGS__)
 #define LOG_FMT_WARN(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::WARN, fmt, __VA_ARGS__)
 #define LOG_FMT_ERROR(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::ERROR, fmt, __VA_ARGS__)
 #define LOG_FMT_FATAL(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
-#define LOG_FMT_FATAL(logger, fmt, ...) LOG_FMT_LEVEL(logger, LogLevel::FATAL, fmt, __VA_ARGS__)
 
 #define LOG_ROOT() sylar::LoggerMgr::GetInstance().getRoot()
-#define LOG_NAME(name) sylar::LoggerMgr::GetInstance().getLogger(name);
+#define LOG_NAME(name) sylar::LoggerMgr::GetInstance().getLogger(name)
 
 namespace sylar
 {

@@ -156,6 +156,32 @@ test_thread/fast:
 .PHONY : test_thread/fast
 
 #=============================================================================
+# Target rules for targets named test_util
+
+# Build rule for target.
+test_util: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_util
+.PHONY : test_util
+
+# fast build rule for target.
+test_util/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_util.dir/build.make test/CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
+#=============================================================================
+# Target rules for targets named test_fiber
+
+# Build rule for target.
+test_fiber: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_fiber
+.PHONY : test_fiber
+
+# fast build rule for target.
+test_fiber/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_fiber.dir/build.make test/CMakeFiles/test_fiber.dir/build
+.PHONY : test_fiber/fast
+
+#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -178,8 +204,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... sylar"
 	@echo "... test_config"
+	@echo "... test_fiber"
 	@echo "... test_log"
 	@echo "... test_thread"
+	@echo "... test_util"
 .PHONY : help
 
 
