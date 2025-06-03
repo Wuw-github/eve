@@ -182,6 +182,19 @@ test_fiber/fast:
 .PHONY : test_fiber/fast
 
 #=============================================================================
+# Target rules for targets named test_schedule
+
+# Build rule for target.
+test_schedule: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_schedule
+.PHONY : test_schedule
+
+# fast build rule for target.
+test_schedule/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_schedule.dir/build.make test/CMakeFiles/test_schedule.dir/build
+.PHONY : test_schedule/fast
+
+#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -206,6 +219,7 @@ help:
 	@echo "... test_config"
 	@echo "... test_fiber"
 	@echo "... test_log"
+	@echo "... test_schedule"
 	@echo "... test_thread"
 	@echo "... test_util"
 .PHONY : help

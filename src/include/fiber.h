@@ -8,9 +8,12 @@
 
 namespace sylar
 {
+    class Scheduler;
 
     class Fiber : public std::enable_shared_from_this<Fiber>
     {
+        friend class Scheduler;
+
     public:
         typedef std::shared_ptr<Fiber> ptr;
         enum State
@@ -24,7 +27,7 @@ namespace sylar
         };
 
     public:
-        Fiber(std::function<void()> cb, size_t stacksize = 0);
+        Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);
         ~Fiber();
 
         // reset fiber function and state, only in INIT or TERM
@@ -32,6 +35,10 @@ namespace sylar
 
         // switch to current fiber
         void swapIn();
+
+        void call();
+
+        void back();
 
         // switch out and stay in background
         void swapOut();
@@ -56,6 +63,8 @@ namespace sylar
         static uint64_t TotalFibers();
 
         static void MainFunc();
+
+        static void CallerMainFunc();
 
         static uint64_t GetFiberId();
 

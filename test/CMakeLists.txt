@@ -12,3 +12,6 @@ target_link_libraries(test_util sylar)
 
 add_executable(test_fiber test_fiber.cc)
 target_link_libraries(test_fiber sylar)
+
+add_executable(test_schedule test_schedule.cc)
+target_link_libraries(test_schedule sylar)
