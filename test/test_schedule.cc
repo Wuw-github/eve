@@ -17,6 +17,10 @@ void test_fiber()
     }
 }
 
+void test1()
+{
+}
+
 int main(int argc, char *argv[])
 {
     Scheduler sc(3, true, "test");

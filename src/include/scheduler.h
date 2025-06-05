@@ -70,9 +70,11 @@ namespace sylar
 
         virtual bool stopping();
 
+        virtual void idle();
+
         void setThis();
 
-        virtual void idle();
+        bool hasIdleThreads() { return m_idleThreads > 0; }
 
     private:
         template <class FiberOrCb>

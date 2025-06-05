@@ -1,11 +1,12 @@
 #pragma once
 
 #include "scheduler.h"
+#include "timer.h"
 
 namespace sylar
 {
 
-    class IOManager : public Scheduler
+    class IOManager : public Scheduler, public TimerManager
     {
 
     public:
@@ -15,14 +16,14 @@ namespace sylar
         enum Event
         {
             NONE = 0x0,
-            READ = 0x1,
-            WRITE = 0x2,
+            READ = 0x1,  // EPOLLIN
+            WRITE = 0x4, // EPOLLOUT
         };
 
     private:
         struct FdContext
         {
-            typedef MutexType Mutex;
+            typedef Mutex MutexType;
             struct EventContext
             {
                 Scheduler *scheduler = nullptr;
@@ -31,12 +32,18 @@ namespace sylar
             };
 
         public:
+            EventContext &getContext(Event event);
+            void resetContext(EventContext &ctx);
+
+            void triggerEvent(Event event);
+
+        public:
             // file descriptor
             int fd = 0;
             EventContext read;
             EventContext write;
 
-            Event m_event = NONE;
+            Event events = NONE;
             MutexType m_mutex;
         };
 
@@ -44,6 +51,7 @@ namespace sylar
         IOManager(size_t threads = 1, bool use_caller = true, const std::string &name = "");
         ~IOManager();
 
+        // 0 - success, -1 - fail
         int addEvent(int fd, Event event, std::function<void()> cb = nullptr);
         bool delEvent(int fd, Event event);
         bool cancelEvent(int fd, Event event);
@@ -57,9 +65,13 @@ namespace sylar
 
         bool stopping() override;
 
+        bool stopping(uint64_t &timeout);
+
         void idle() override;
 
         void contextResize(size_t size);
+
+        void onTimerInsertedAtFront() override;
 
     private:
         int m_epfd = 0;

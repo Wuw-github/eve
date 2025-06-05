@@ -195,6 +195,19 @@ test_schedule/fast:
 .PHONY : test_schedule/fast
 
 #=============================================================================
+# Target rules for targets named test_iomanager
+
+# Build rule for target.
+test_iomanager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_iomanager
+.PHONY : test_iomanager
+
+# fast build rule for target.
+test_iomanager/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_iomanager.dir/build.make test/CMakeFiles/test_iomanager.dir/build
+.PHONY : test_iomanager/fast
+
+#=============================================================================
 # Target rules for targets named sylar
 
 # Build rule for target.
@@ -218,6 +231,7 @@ help:
 	@echo "... sylar"
 	@echo "... test_config"
 	@echo "... test_fiber"
+	@echo "... test_iomanager"
 	@echo "... test_log"
 	@echo "... test_schedule"
 	@echo "... test_thread"

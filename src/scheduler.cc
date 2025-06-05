@@ -230,9 +230,9 @@ namespace sylar
                 }
                 ft.reset();
                 // start task
-                LOG_INFO(g_logger) << "Thread start to run cb";
+                // LOG_INFO(g_logger) << "Thread start to run cb";
                 cb_fiber->swapIn();
-                LOG_INFO(g_logger) << "Thread finish to run cb";
+                // LOG_INFO(g_logger) << "Thread finish to run cb";
                 --m_activeThreads;
 
                 if (cb_fiber->getState() == Fiber::READY)
@@ -260,6 +260,7 @@ namespace sylar
                 if (idle_fiber->getState() == Fiber::TERM)
                 {
                     LOG_INFO(g_logger) << "idle fiber terminated.";
+                    tickle();
                     break;
                 }
 
@@ -287,7 +288,6 @@ namespace sylar
         while (!stopping())
         {
             Fiber::YieldToHold();
-            // LOG_INFO(g_logger) << "idle go out";
         }
     }
 
