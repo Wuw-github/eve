@@ -18,3 +18,6 @@ target_link_libraries(test_schedule sylar)
 
 add_executable(test_iomanager test_iomanager.cc)
 target_link_libraries(test_iomanager sylar)
+
+add_executable(test_hook test_hook.cc)
+target_link_libraries(test_hook sylar)

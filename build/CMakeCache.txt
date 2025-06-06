@@ -230,7 +230,7 @@ sylar_BINARY_DIR:STATIC=/home/wu/Documents/sylar/build
 sylar_IS_TOP_LEVEL:STATIC=ON
 
 //Dependencies for the target
-sylar_LIB_DEPENDS:STATIC=general;pthread;general;yaml-cpp;
+sylar_LIB_DEPENDS:STATIC=general;pthread;general;yaml-cpp;general;dl;
 
 //Value Computed by CMake
 sylar_SOURCE_DIR:STATIC=/home/wu/Documents/sylar

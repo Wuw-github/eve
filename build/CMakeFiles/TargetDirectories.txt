@@ -7,6 +7,7 @@
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_fiber.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_schedule.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/test_iomanager.dir
+/home/wu/Documents/sylar/build/test/CMakeFiles/test_hook.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/edit_cache.dir
 /home/wu/Documents/sylar/build/test/CMakeFiles/rebuild_cache.dir
 /home/wu/Documents/sylar/build/src/CMakeFiles/sylar.dir
