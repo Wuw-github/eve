@@ -7,6 +7,7 @@ namespace sylar
     FdCtx::FdCtx(int fd)
         : m_fd(fd)
     {
+        init();
     }
 
     bool FdCtx::init()

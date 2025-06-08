@@ -4,7 +4,6 @@ namespace eve
 {
     class Noncopyable
     {
-
     public:
         Noncopyable() = default;
         ~Noncopyable() = default;

@@ -148,12 +148,12 @@ test/clean: test/CMakeFiles/test_hook.dir/clean
 test/CMakeFiles/test_log.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=22,23 "Built target test_log"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=23,24 "Built target test_log"
 .PHONY : test/CMakeFiles/test_log.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_log.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_log.dir/rule
@@ -165,7 +165,7 @@ test_log: test/CMakeFiles/test_log.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_log.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=22,23 "Finished codegen for target test_log"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=23,24 "Finished codegen for target test_log"
 .PHONY : test/CMakeFiles/test_log.dir/codegen
 
 # clean rule for target.
@@ -180,12 +180,12 @@ test/CMakeFiles/test_log.dir/clean:
 test/CMakeFiles/test_config.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=14,15 "Built target test_config"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=15,16 "Built target test_config"
 .PHONY : test/CMakeFiles/test_config.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_config.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_config.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_config.dir/rule
@@ -197,7 +197,7 @@ test_config: test/CMakeFiles/test_config.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_config.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=14,15 "Finished codegen for target test_config"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=15,16 "Finished codegen for target test_config"
 .PHONY : test/CMakeFiles/test_config.dir/codegen
 
 # clean rule for target.
@@ -212,12 +212,12 @@ test/CMakeFiles/test_config.dir/clean:
 test/CMakeFiles/test_thread.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=26,27 "Built target test_thread"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=27,28 "Built target test_thread"
 .PHONY : test/CMakeFiles/test_thread.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_thread.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_thread.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_thread.dir/rule
@@ -229,7 +229,7 @@ test_thread: test/CMakeFiles/test_thread.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_thread.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=26,27 "Finished codegen for target test_thread"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=27,28 "Finished codegen for target test_thread"
 .PHONY : test/CMakeFiles/test_thread.dir/codegen
 
 # clean rule for target.
@@ -244,12 +244,12 @@ test/CMakeFiles/test_thread.dir/clean:
 test/CMakeFiles/test_util.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_util.dir/build.make test/CMakeFiles/test_util.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_util.dir/build.make test/CMakeFiles/test_util.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=28,29 "Built target test_util"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=29,30 "Built target test_util"
 .PHONY : test/CMakeFiles/test_util.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_util.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_util.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_util.dir/rule
@@ -261,7 +261,7 @@ test_util: test/CMakeFiles/test_util.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_util.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_util.dir/build.make test/CMakeFiles/test_util.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=28,29 "Finished codegen for target test_util"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=29,30 "Finished codegen for target test_util"
 .PHONY : test/CMakeFiles/test_util.dir/codegen
 
 # clean rule for target.
@@ -276,12 +276,12 @@ test/CMakeFiles/test_util.dir/clean:
 test/CMakeFiles/test_fiber.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_fiber.dir/build.make test/CMakeFiles/test_fiber.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_fiber.dir/build.make test/CMakeFiles/test_fiber.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=16,17 "Built target test_fiber"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=17,18 "Built target test_fiber"
 .PHONY : test/CMakeFiles/test_fiber.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_fiber.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_fiber.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_fiber.dir/rule
@@ -293,7 +293,7 @@ test_fiber: test/CMakeFiles/test_fiber.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_fiber.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_fiber.dir/build.make test/CMakeFiles/test_fiber.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=16,17 "Finished codegen for target test_fiber"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=17,18 "Finished codegen for target test_fiber"
 .PHONY : test/CMakeFiles/test_fiber.dir/codegen
 
 # clean rule for target.
@@ -308,12 +308,12 @@ test/CMakeFiles/test_fiber.dir/clean:
 test/CMakeFiles/test_schedule.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_schedule.dir/build.make test/CMakeFiles/test_schedule.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_schedule.dir/build.make test/CMakeFiles/test_schedule.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=24,25 "Built target test_schedule"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=25,26 "Built target test_schedule"
 .PHONY : test/CMakeFiles/test_schedule.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_schedule.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_schedule.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_schedule.dir/rule
@@ -325,7 +325,7 @@ test_schedule: test/CMakeFiles/test_schedule.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_schedule.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_schedule.dir/build.make test/CMakeFiles/test_schedule.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=24,25 "Finished codegen for target test_schedule"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=25,26 "Finished codegen for target test_schedule"
 .PHONY : test/CMakeFiles/test_schedule.dir/codegen
 
 # clean rule for target.
@@ -340,12 +340,12 @@ test/CMakeFiles/test_schedule.dir/clean:
 test/CMakeFiles/test_iomanager.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_iomanager.dir/build.make test/CMakeFiles/test_iomanager.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_iomanager.dir/build.make test/CMakeFiles/test_iomanager.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=20,21 "Built target test_iomanager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=21,22 "Built target test_iomanager"
 .PHONY : test/CMakeFiles/test_iomanager.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_iomanager.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_iomanager.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_iomanager.dir/rule
@@ -357,7 +357,7 @@ test_iomanager: test/CMakeFiles/test_iomanager.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_iomanager.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_iomanager.dir/build.make test/CMakeFiles/test_iomanager.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=20,21 "Finished codegen for target test_iomanager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=21,22 "Finished codegen for target test_iomanager"
 .PHONY : test/CMakeFiles/test_iomanager.dir/codegen
 
 # clean rule for target.
@@ -372,12 +372,12 @@ test/CMakeFiles/test_iomanager.dir/clean:
 test/CMakeFiles/test_hook.dir/all: src/CMakeFiles/sylar.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hook.dir/build.make test/CMakeFiles/test_hook.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hook.dir/build.make test/CMakeFiles/test_hook.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=18,19 "Built target test_hook"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=19,20 "Built target test_hook"
 .PHONY : test/CMakeFiles/test_hook.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_hook.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test_hook.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_hook.dir/rule
@@ -389,7 +389,7 @@ test_hook: test/CMakeFiles/test_hook.dir/rule
 # codegen rule for target.
 test/CMakeFiles/test_hook.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test_hook.dir/build.make test/CMakeFiles/test_hook.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=18,19 "Finished codegen for target test_hook"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=19,20 "Finished codegen for target test_hook"
 .PHONY : test/CMakeFiles/test_hook.dir/codegen
 
 # clean rule for target.
@@ -404,12 +404,12 @@ test/CMakeFiles/test_hook.dir/clean:
 src/CMakeFiles/sylar.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Built target sylar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target sylar"
 .PHONY : src/CMakeFiles/sylar.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/sylar.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/sylar.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wu/Documents/sylar/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/sylar.dir/rule
@@ -421,7 +421,7 @@ sylar: src/CMakeFiles/sylar.dir/rule
 # codegen rule for target.
 src/CMakeFiles/sylar.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/sylar.dir/build.make src/CMakeFiles/sylar.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Finished codegen for target sylar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/wu/Documents/sylar/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Finished codegen for target sylar"
 .PHONY : src/CMakeFiles/sylar.dir/codegen
 
 # clean rule for target.

@@ -92,10 +92,12 @@ template <typename OriginFun, typename... Args>
 static ssize_t do_io(int fd, OriginFun fun, const char *hook_fun_name,
                      uint32_t event, int timeout_so, Args &&...args)
 {
+
     if (!sylar::t_hook_enable)
     {
         return fun(fd, std::forward<Args>(args)...);
     }
+
     sylar::FdCtx::ptr ctx = sylar::FdMgr::GetInstance().get(fd);
     if (!ctx)
     {
