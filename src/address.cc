@@ -9,6 +9,7 @@
 
 namespace sylar
 {
+    static Logger::ptr g_logger = LOG_ROOT();
 
     template <class T>
     static T CreateMask(uint32_t bits)
@@ -17,6 +18,29 @@ namespace sylar
     }
 
     ///////////////////// Address ///////////////////////
+
+    Address::ptr Address::Create(const sockaddr *addr, socklen_t addrlen)
+    {
+        if (addr == nullptr)
+        {
+            return nullptr;
+        }
+
+        Address::ptr result;
+        switch (addr->sa_family)
+        {
+        case AF_INET:
+            result.reset(new IPv4Address(*(const sockaddr_in *)addr));
+            break;
+        case AF_INET6:
+            result.reset(new IPv6Address(*(const sockaddr_in6 *)addr));
+            break;
+        default:
+            result.reset(new UnknownAddress(*addr));
+            break;
+        }
+        return result;
+    }
 
     int Address::getFamily() const
     {
@@ -57,7 +81,58 @@ namespace sylar
         return !(*this == rhs);
     }
 
+    ///////////////////////// IPAddress /////////////////////////////
+
+    IPAddress::ptr IPAddress::Create(const char *address, uint32_t port)
+    {
+        addrinfo hints, *results;
+        memset(&hints, 0, sizeof(addrinfo));
+
+        hints.ai_flags = AI_NUMERICHOST;
+        hints.ai_family = AF_UNSPEC;
+        int error = getaddrinfo(address, NULL, &hints, &results);
+        if (error)
+        {
+            LOG_DEBUG(g_logger) << "IPAddress::Create(" << address
+                                << ", " << port << ") error=" << error
+                                << " errno=" << errno << " errstr=" << strerror(errno);
+            return nullptr;
+        }
+
+        try
+        {
+            IPAddress::ptr result = std::dynamic_pointer_cast<IPAddress>(
+                Address::Create(results->ai_addr, (socklen_t)results->ai_addrlen));
+            if (result)
+            {
+                result->setPort(port);
+            }
+            freeaddrinfo(results);
+            return result;
+        }
+        catch (...)
+        {
+            freeaddrinfo(results);
+            return nullptr;
+        }
+    }
+
     ///////////////////////// IPv4 /////////////////////////////
+
+    IPv4Address::ptr IPv4Address::Create(const char *address, uint32_t port)
+    {
+        IPv4Address::ptr ret(new IPv4Address);
+        ret->m_addr.sin_port = toBigEndian(port);
+        int result = inet_pton(AF_INET, address, &ret->m_addr.sin_addr);
+        if (result <= 0)
+        {
+            LOG_DEBUG(g_logger) << "IPv4Address::Create(" << address << ", "
+                                << port << ") rt=" << result << " errno=" << errno
+                                << " errstr=" << strerror(errno);
+            return nullptr;
+        }
+        return ret;
+    }
 
     IPv4Address::IPv4Address(const sockaddr_in &address)
         : m_addr(address)
@@ -140,18 +215,34 @@ namespace sylar
     }
 
     ///////////////////////// IPv6 /////////////////////////////
+
+    IPv6Address::ptr IPv6Address::Create(const char *address, uint16_t port)
+    {
+        IPv6Address::ptr rt(new IPv6Address);
+        rt->m_addr.sin6_port = toBigEndian(port);
+        int result = inet_pton(AF_INET6, address, &rt->m_addr.sin6_addr);
+        if (result <= 0)
+        {
+            LOG_DEBUG(g_logger) << "IPv6Address::Create(" << address << ", "
+                                << port << ") rt=" << result << " errno=" << errno
+                                << " errstr=" << strerror(errno);
+            return nullptr;
+        }
+        return rt;
+    }
+
     IPv6Address::IPv6Address()
     {
         memset(&m_addr, 0, sizeof(m_addr));
         m_addr.sin6_family = AF_INET6;
     }
 
-    IPv6Address::IPv6Address(sockaddr_in6 &address)
+    IPv6Address::IPv6Address(const sockaddr_in6 &address)
         : m_addr(address)
     {
     }
 
-    IPv6Address::IPv6Address(const char *address, uint16_t port)
+    IPv6Address::IPv6Address(const uint8_t address[16], uint16_t port)
     {
         memset(&m_addr, 0, sizeof(m_addr));
         m_addr.sin6_family = AF_INET6;
@@ -303,6 +394,11 @@ namespace sylar
     {
         memset(&m_addr, 0, sizeof(m_addr));
         m_addr.sa_family = family;
+    }
+
+    UnknownAddress::UnknownAddress(const sockaddr &addr)
+        : m_addr(addr)
+    {
     }
 
     const sockaddr *UnknownAddress::getAddr() const
