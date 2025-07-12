@@ -54,6 +54,8 @@ namespace sylar
     }
 
     static uint64_t s_connect_timeout = -1;
+
+    // since this is a static variable, it will be initialized before main function starts
     struct _HookIniter
     {
         _HookIniter()
@@ -71,8 +73,7 @@ namespace sylar
     // execute init before main function start
     static _HookIniter s_hook_initer;
 
-    bool
-    is_hook_enable()
+    bool is_hook_enable()
     {
         return t_hook_enable;
     }
@@ -428,6 +429,7 @@ extern "C"
 
         default:
             va_end(va);
+            LOG_WARN(g_logger) << "unhandled fcntl cmd=" << cmd;
             return fcntl_f(fd, cmd);
         }
     }

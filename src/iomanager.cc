@@ -170,7 +170,7 @@ namespace sylar
     bool IOManager::delEvent(int fd, Event event)
     {
         RWMutexType::ReadLock lock(m_mutex);
-        if ((int)m_fdContexts.size() > fd)
+        if ((int)m_fdContexts.size() <= fd)
         {
             return false;
         }
@@ -245,7 +245,7 @@ namespace sylar
     bool IOManager::cancelAll(int fd)
     {
         RWMutexType::ReadLock lock(m_mutex);
-        if ((int)m_fdContexts.size() > fd)
+        if ((int)m_fdContexts.size() <= fd)
         {
             return false;
         }

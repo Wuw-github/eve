@@ -20,6 +20,9 @@ namespace sylar
 
         static Address::ptr Create(const sockaddr *addr, socklen_t addrlen);
 
+        static bool Lookup(std::vector<Address::ptr> &result, const std::string &host,
+                           int family = AF_UNSPEC, int type = 0, int protocol = 0);
+
         virtual ~Address() = default;
 
         int getFamily() const;

@@ -39,6 +39,8 @@ namespace sylar
             {
                 fcntl_f(m_fd, F_SETFL, flags | O_NONBLOCK);
             }
+            // The system fd is always non-blocking after init for sockets.
+            // The previous value of m_sysNonblock doesn't matter.
             m_sysNonblock = true;
         }
         else

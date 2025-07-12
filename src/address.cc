@@ -18,6 +18,25 @@ namespace sylar
     }
 
     ///////////////////// Address ///////////////////////
+    // 52 - 10:44
+    bool Address::Lookup(std::vector<Address::ptr> &result, const std::string &host,
+                         int family, int type, int protocol)
+    {
+        addrinfo hints, *results, *next;
+        hints.ai_flags
+    }
+
+    int Address::getFamily() const
+    {
+        return getAddr()->sa_family;
+    }
+
+    std::string Address::toString()
+    {
+        std::stringstream ss;
+        insert(ss);
+        return ss.str();
+    }
 
     Address::ptr Address::Create(const sockaddr *addr, socklen_t addrlen)
     {
